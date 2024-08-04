@@ -1,9 +1,12 @@
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
+import {db} from './data/db';
 import Guitar from './components/Guitar';
 import Header from './components/Header';
+
 function App() {
-	// state
-	const [auth, setAuth] = useState(false);
+	const [data, setData] = useState(db);
+	const [cart, setCart] = useState([]);
+
 	return (
 		<>
 			<Header />
@@ -11,7 +14,9 @@ function App() {
 				<h2 className='text-center'>Nuestra Colección</h2>
 
 				<div className='row mt-5'>
-					<Guitar />
+					{data.map(guitar => (
+						<Guitar key={guitar.id} guitar={guitar} setCart={setCart} />
+					))}
 				</div>
 			</main>
 
